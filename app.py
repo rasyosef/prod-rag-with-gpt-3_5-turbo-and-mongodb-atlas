@@ -20,6 +20,7 @@ store = MongoDBAtlasVectorSearch(
 )
 
 
+# Check if the OPENAI API KEY is valid
 def is_valid_openai_api_key(api_key):
     client = openai.OpenAI(api_key=api_key)
     try:
@@ -30,6 +31,7 @@ def is_valid_openai_api_key(api_key):
         return True
 
 
+# Create a query engine using the provided api key
 def prepare_query_engine(api_key):
     # OpenAI Embeddings
     embed_model = OpenAIEmbedding(
@@ -57,7 +59,7 @@ def prepare_query_engine(api_key):
     return query_engine
 
 
-# Generates response using the question answering chain defined earlier
+# Generates response using the query engine
 def generate(query, api_key):
     if api_key.strip() == "" or not is_valid_openai_api_key(api_key):
         yield "Please enter a valid openai api key"
